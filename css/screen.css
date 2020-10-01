@@ -46,6 +46,15 @@
     /* transitions */
     --global-transitionTiming-alpha: .1s ease-out;
 
+    /* Global vars -Tussenlaag naar de values*/
+    --global-input-backgroundColor: White;
+    --global-input-color: var(--global-color-neutral-xxxx-dark);
+    --global-input-borderColor: var(--global-color-neutral-xxx-light);
+    --global-input-hover-borderColor: var(--global-color-neutral-xx-light);
+    --global-input-focus-borderColor: var(--global-color-alpha);
+    --global-input-boxShadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
+
+
     /* Baseline settings */
     --global-baseline: 8px;         
     --global-whitespace: calc(var(--global-baseline) * 3); /* = 24px */
@@ -601,10 +610,10 @@ input::placeholder {
     -moz-appearance: none;
     appearance: none;
     width: 100%;
-    border: var(--global-borderWidth) solid var(--global-color-neutral-xxx-light);
+    border: var(--global-borderWidth) solid var(--global-input-borderColor);
     border-radius: var(--global-borderRadius);
-    color: var(--global-color-neutral-xxxx-dark);
-    background-color: White;
+    color: var(--global-input-color);
+    background-color: var(--global-input-backgroundColor);
     font-family: inherit;
     font-size: 16px;
     line-height: calc(var(--global-baseline) * 3);
@@ -614,12 +623,12 @@ input::placeholder {
 }
 
 .c-input:hover {
-    border-color: var(--global-color-neutral-xx-light);
+    border-color: var(--global-input-hover-borderColor);
 }
 
 .c-input:focus,
 .c-input:active {
-    border-color: var(--global-color-alpha);
+    border-color: var(--global-input-focus-borderColor);
     box-shadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
 }
 
@@ -628,6 +637,79 @@ input::placeholder {
 .c-option {
     margin-right: var(--global-whitespace-sm);
 }
+
+.c-option--hidden{
+    --custom-option-focus-borderColor: var(--global-input-borderColor);
+}
+
+.c-option--hidden:checked + .c-custom-option {
+
+}
+
+.c-option--hidden:checked + .c-custom-option .c-custom-option__symbol {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.c-custom-option__symbol{
+    opacity: 0;
+    display: block;
+    transform: scale(0);
+    will-change: opacity, transform;
+    transition: opacity 150ms ease-in, transform 250ms cubic-bezier(0.78,-0.01,0.768,2);
+}
+
+.c-custom-option{
+    
+    display: flex;
+    align-items: center;
+}
+
+.c-custom-option__fake-input{
+    display: flex;
+    width: var(--global-whitespace-md);
+    height: var(--global-whitespace-md);
+    border: 1px solid var(--custom-option-focus-borderColor);
+    
+    border-radius: var(--global-borderRadius);
+    margin-right: var(--global-whitespace-sm);
+    box-shadow: inset 0 0 1px 1px var(--global-color-neutral-xxx-light);
+
+    align-items: center;
+    justify-content: center;
+}
+
+.c-custom-option__fake-input--radio{
+    border-radius: 50%;
+}
+
+.c-custom-option__fake-input--checkbox .c-custom-option__symbol {
+    width: 10px;
+    height: 10px;
+    fill: var(--global-color-alpha);
+  }
+  
+  .c-custom-option__fake-input--radio .c-custom-option__symbol {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--global-color-alpha);
+  }
+
+  .c-option--hidden:focus + .c-custom-option .c-custom-option__fake-input,
+  .c-option--hidden:active + .c-custom-option .c-custom-option__fake-input{
+      border-color: var(--global-color-alpha);
+      box-shadow: var(--global-input-boxShadow);
+  }
+
+  .c-option--hidden:hover
+
+  .c-option-list{
+      margin-bottom: 24px;
+  }
+  .c-option-list__item{
+      margin-bottom: 12px;
+  }
 
 /*
     Component: Label
